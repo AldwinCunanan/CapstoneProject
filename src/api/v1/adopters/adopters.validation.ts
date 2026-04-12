@@ -3,14 +3,14 @@ import Joi from "joi";
 export const adopterSchemas = {
   // POST /adopters - Create new adopter
     create: {
-    body: Joi.object({
-        name: Joi.string().required(),
-        email: Joi.string().email().required(),
-        phone: Joi.string().required(),
-        address: Joi.string().optional(),
-        preferredSpecies: Joi.array().items(Joi.string()).optional(),
-        }).options({ allowUnknown: false }),
-  },
+        body: Joi.object({
+            name: Joi.string().required(),
+            email: Joi.string().email().required(),
+            phone: Joi.string().required(),
+            address: Joi.string().optional(),
+            preferredSpecies: Joi.array().items(Joi.string()).optional(),
+            }).options({ allowUnknown: false }),
+    },
 
   // GET /adopters/:id - Get single adopter
     getById: {
@@ -36,9 +36,9 @@ export const adopterSchemas = {
         },
 
   // DELETE /adopters/:id - Delete adopter
-  delete: {
-    params: Joi.object({
-      id: Joi.string().required(),
+    delete: {
+        params: Joi.object({
+            id: Joi.string().required(),
     }),
   },
 };
