@@ -32,6 +32,7 @@ export const getAllAnimals = async (
 
     res.status(HTTP_STATUS.OK).json({
       message: "Animals retrieved successfully",
+      count: animals.length,
       data: animals,
     });
   } catch (error) {
