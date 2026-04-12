@@ -11,14 +11,14 @@ animalRouter.post("/animals", authenticate, isAuthorized({hasRole:["admin", "sta
     validateRequest(animalSchemas.create), animalController.createAnimal)
 
 animalRouter.get("/animals", authenticate, animalController.getAllAnimals);
-animalRouter.get("/loans/:id", authenticate, validateRequest(animalSchemas.getById), animalController.getAnimalById);
+animalRouter.get("/animals/:id", authenticate, validateRequest(animalSchemas.getById), animalController.getAnimalById);
 
-animalRouter.put("/loans/:id", 
+animalRouter.put("/animals/:id", 
     authenticate,
     isAuthorized({ hasRole: ["admin"], allowSameUser: true }),
     validateRequest(animalSchemas.update), animalController.updateAnimal);
 
-animalRouter.delete("/loans/:id", 
+animalRouter.delete("/animals/:id", 
      authenticate,
      isAuthorized({ hasRole: ["admin"] }),
      validateRequest(animalSchemas.delete), animalController.deleteAnimal);
