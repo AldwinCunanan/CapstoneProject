@@ -42,10 +42,6 @@ const authenticate = async (
 
     const token = authHeader.split(" ")[1];
 
-    console.log("AUTH HEADER:", authHeader);
-    console.log("TOKEN START:", token?.slice(0, 20));
-    console.log("JWT PARTS:", token?.split(".").length);
-
     if (!token) {
         return next(
             new AuthenticationError(
