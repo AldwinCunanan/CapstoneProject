@@ -51,7 +51,7 @@ export const animalSchemas = {
 
             description: Joi.string().optional(),
             })
-            .min(1) // 🔥 at least one field must be updated
+            .min(1) // must have at least 1 update
             .options({ allowUnknown: false }),
         },
 

@@ -45,7 +45,10 @@ export const getAllAnimals = async (): Promise<Animal[]> => {
         data.updatedAt = data.updatedAt.toDate().toISOString();
       }
 
-      return data as Animal;
+      return {
+        id: doc.id,
+        ...(data as Omit<Animal, "id">),
+      }
     });
   } catch (error: unknown) {
     const errorMessage =
@@ -75,7 +78,10 @@ export const getAnimalById = async (id: string): Promise<Animal | null> => {
       data.updatedAt = data.updatedAt.toDate().toISOString();
     }
 
-    return data as Animal;
+    return {
+        id: snapshot.id,
+        ...(data as Omit<Animal, "id">),
+      }
   } catch (error: unknown) {
     const errorMessage =
       error instanceof Error ? error.message : "Unknown error";
