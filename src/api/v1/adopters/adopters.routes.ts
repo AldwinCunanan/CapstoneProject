@@ -5,24 +5,24 @@ import { adopterSchemas } from "./adopters.validation";
 import authenticate from "../middleware/authenticate";
 import isAuthorized from "../middleware/authorize";
 
-const animalRouter = express.Router();
+const adopterRouter = express.Router();
 
-animalRouter.post("/adopters", authenticate, isAuthorized({hasRole:["admin", "staff"]}), 
+adopterRouter.post("/adopters", authenticate, isAuthorized({hasRole:["admin", "staff"]}), 
     validateRequest(adopterSchemas.create), adopterController.createAdopter)
 
-animalRouter.get("/adopters", authenticate, adopterController.getAllAdopters);
+adopterRouter.get("/adopters", authenticate, adopterController.getAllAdopters);
 
-animalRouter.get("/adopters/:id", authenticate, validateRequest(adopterSchemas.getById),
+adopterRouter.get("/adopters/:id", authenticate, validateRequest(adopterSchemas.getById),
  adopterController.getAdopterById);
 
-animalRouter.put("/adopters/:id", 
+adopterRouter.put("/adopters/:id", 
     authenticate,
     isAuthorized({ hasRole: ["admin"], allowSameUser: true }),
     validateRequest(adopterSchemas.update), adopterController.updateAdopter);
 
-animalRouter.delete("/adopters/:id", 
+adopterRouter.delete("/adopters/:id", 
      authenticate,
      isAuthorized({ hasRole: ["admin"] }),
      validateRequest(adopterSchemas.delete), adopterController.deleteAdopter);
 
-export default animalRouter;
+export default adopterRouter;
