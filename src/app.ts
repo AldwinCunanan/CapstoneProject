@@ -8,6 +8,7 @@ import authRoutes from "./api/v1/routes/adminRoutes";
 import signInRoutes from "./api/v1/routes/signInRoutes";
 import animalRouter from "./api/v1/animals/animals.routes";
 import adopterRouter from "./api/v1/adopters/adopters.routes";
+import adoptionRequest from "./api/v1/adoptionApplications/adoption.routes"
 import adminRoutes from "./api/v1/routes/adminRoutes"
 
 const app = express();
@@ -40,8 +41,9 @@ app.get("/api/v1/health", (_req, res): void => {
 });
 
 // api routes
-app.use("/api/v1/", animalRouter)
-app.use("/api/v1/", adopterRouter)
+app.use("/api/v1/", animalRouter);
+app.use("/api/v1/", adopterRouter);
+app.use("/api/v1/", adoptionRequest);
 
 
 // Body parsing middleware
