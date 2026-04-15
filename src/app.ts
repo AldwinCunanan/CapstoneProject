@@ -1,4 +1,5 @@
 import express from "express";
+import setupSwagger from "./config/swagger";
 import {
     accessLogger,
     errorLogger,
@@ -46,7 +47,7 @@ app.use("/api/v1/", adopterRouter);
 app.use("/api/v1/", adoptionRequest);
 
 
-// Body parsing middleware
-app.use(express.json());
+// Setup Swagger
+setupSwagger(app);
 
 export default app;

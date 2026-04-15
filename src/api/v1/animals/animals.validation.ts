@@ -3,6 +3,54 @@ import Joi from "joi";
 const genderOptions = ["male", "female"];
 const healthOptions = ["healthy", "injured", "sick"];
 
+/**
+ * @openapi
+ * components:
+ *   schemas:
+ *     Animal:
+ *       type: object
+ *       required:
+ *         - id
+ *         - name
+ *         - species
+ *         - age
+ *         - gender
+ *       properties:
+ *         id:
+ *           type: string
+ *           description: Unique identifier for the animal
+ *           example: "animal_123abc"
+ *         name:
+ *           type: string
+ *           description: Name of the animal
+ *           example: "Buddy"
+ *         species:
+ *           type: string
+ *           description: Species of the animal
+ *           example: "Dog"
+ *         breed:
+ *           type: string
+ *           description: Breed of the animal
+ *           example: "Golden Retriever"
+ *         age:
+ *           type: number
+ *           minimum: 0
+ *           description: Age of the animal
+ *           example: 3
+ *         gender:
+ *           type: string
+ *           enum: [male, female]
+ *         healthStatus:
+ *           type: string
+ *           enum: [healthy, injured, sick]
+ *           default: healthy
+ *         isAdopted:
+ *           type: boolean
+ *           default: false
+ *         description:
+ *           type: string
+ *           example: "Friendly and energetic"
+ */
 
 export const animalSchemas = {
   // POST /animals - Create new animal
@@ -62,3 +110,69 @@ export const animalSchemas = {
     }),
   },
 };
+
+/**
+ * @openapi
+ * components:
+ *   schemas:
+ *     CreateAnimalRequest:
+ *       type: object
+ *       required:
+ *         - name
+ *         - species
+ *         - age
+ *         - gender
+ *       properties:
+ *         name:
+ *           type: string
+ *         species:
+ *           type: string
+ *         breed:
+ *           type: string
+ *         age:
+ *           type: number
+ *           minimum: 0
+ *         gender:
+ *           type: string
+ *           enum: [male, female]
+ *         healthStatus:
+ *           type: string
+ *           enum: [healthy, injured, sick]
+ *         isAdopted:
+ *           type: boolean
+ *         description:
+ *           type: string
+ *
+ *     UpdateAnimalRequest:
+ *       type: object
+ *       minProperties: 1
+ *       properties:
+ *         name:
+ *           type: string
+ *         species:
+ *           type: string
+ *         breed:
+ *           type: string
+ *         age:
+ *           type: number
+ *           minimum: 0
+ *         gender:
+ *           type: string
+ *           enum: [male, female]
+ *         healthStatus:
+ *           type: string
+ *           enum: [healthy, injured, sick]
+ *         isAdopted:
+ *           type: boolean
+ *         description:
+ *           type: string
+ *
+ *     Error:
+ *       type: object
+ *       required:
+ *         - message
+ *       properties:
+ *         message:
+ *           type: string
+ *           example: "Animal not found"
+ */

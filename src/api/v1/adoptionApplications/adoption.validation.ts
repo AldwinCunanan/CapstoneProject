@@ -2,6 +2,37 @@ import Joi from "joi";
 
 const statusOptions = ["pending", "approved", "rejected"];
 
+/**
+ * @openapi
+ * components:
+ *   schemas:
+ *     Application:
+ *       type: object
+ *       required:
+ *         - id
+ *         - adopterId
+ *         - animalId
+ *         - status
+ *       properties:
+ *         id:
+ *           type: string
+ *           description: Unique identifier for the application
+ *           example: "application_123abc"
+ *         adopterId:
+ *           type: string
+ *           description: ID of the adopter submitting the application
+ *         animalId:
+ *           type: string
+ *           description: ID of the animal being applied for
+ *         status:
+ *           type: string
+ *           enum: [pending, approved, rejected]
+ *           default: pending
+ *         message:
+ *           type: string
+ *           description: Optional message from the adopter
+ *           example: "I have a large yard and experience with pets"
+ */
 export const applicationSchemas = {
   // POST /applications - Create new application
     create: {
@@ -42,3 +73,47 @@ export const applicationSchemas = {
             }),
     },
 };
+/**
+ * @openapi
+ * components:
+ *   schemas:
+ *     CreateApplicationRequest:
+ *       type: object
+ *       required:
+ *         - adopterId
+ *         - animalId
+ *       properties:
+ *         adopterId:
+ *           type: string
+ *         animalId:
+ *           type: string
+ *         status:
+ *           type: string
+ *           enum: [pending, approved, rejected]
+ *           default: pending
+ *         message:
+ *           type: string
+ *
+ *     UpdateApplicationRequest:
+ *       type: object
+ *       minProperties: 1
+ *       properties:
+ *         adopterId:
+ *           type: string
+ *         animalId:
+ *           type: string
+ *         status:
+ *           type: string
+ *           enum: [pending, approved, rejected]
+ *         message:
+ *           type: string
+ *
+ *     Error:
+ *       type: object
+ *       required:
+ *         - message
+ *       properties:
+ *         message:
+ *           type: string
+ *           example: "Application not found"
+ */
