@@ -9,6 +9,8 @@ import {
 } from "./api/v1/middleware/logger";
 import cors from "cors";
 import morgan from "morgan";
+import { getHelmetConfig } from "./config/helmetConfig";
+import { getCorsOptions } from "./config/corsConfig";
 import authRoutes from "./api/v1/routes/adminRoutes";
 import signInRoutes from "./api/v1/routes/signInRoutes";
 import animalRouter from "./api/v1/animals/animals.routes";
@@ -19,6 +21,9 @@ import notificationRouter from "./api/v1/notifications/notifications.routes";
 const app = express();
 
 // Body parsing middleware
+app.use(morgan("combined")); // log first
+app.use(cors(getCorsOptions()));
+app.use(getHelmetConfig());
 app.use(express.json());
 
 // Logging middleware (should be applied early in the middleware stack)
