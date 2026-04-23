@@ -42,7 +42,7 @@ const adoptionRequest = express.Router();
  *             schema:
  *               $ref: '#/components/schemas/Error'
  */
-adoptionRequest.post("/applications", authenticate, isAuthorized({hasRole:["admin", "staff"]}),  // Assign valid user
+adoptionRequest.post("/applications", authenticate, isAuthorized({hasRole:["admin", "staff", "user"]}),  // Assign valid user
     validateRequest(applicationSchemas.create), applicationController.createApplication)
 
 /**
@@ -72,7 +72,8 @@ adoptionRequest.post("/applications", authenticate, isAuthorized({hasRole:["admi
  *                   items:
  *                     $ref: '#/components/schemas/Application'
  */
-adoptionRequest.get("/applications", authenticate, applicationController.getAllApplications);
+adoptionRequest.get("/applications", authenticate,isAuthorized({ hasRole: ["admin", "staff"], allowSameUser: true }),
+ applicationController.getAllApplications);
 
 /**
  * @openapi
@@ -109,7 +110,8 @@ adoptionRequest.get("/applications", authenticate, applicationController.getAllA
  *             schema:
  *               $ref: '#/components/schemas/Error'
  */
-adoptionRequest.get("/applications/:id", authenticate, validateRequest(applicationSchemas.getById),
+adoptionRequest.get("/applications/:id", authenticate, isAuthorized({ hasRole: ["admin", "user", "staff"], allowSameUser: true }),
+ validateRequest(applicationSchemas.getById),
  applicationController.getApplicationById);
 
 /**
@@ -156,7 +158,7 @@ adoptionRequest.get("/applications/:id", authenticate, validateRequest(applicati
  */
 adoptionRequest.put("/applications/:id", 
     authenticate,
-    isAuthorized({ hasRole: ["admin"], allowSameUser: true }),
+    isAuthorized({ hasRole: ["admin", "staff", "user"], allowSameUser: true }),
     validateRequest(applicationSchemas.update), applicationController.updateApplication); // 
 
 /**
