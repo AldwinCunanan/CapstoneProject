@@ -174,5 +174,4 @@ export const animalSchemas = {
  *       properties:
  *         message:
  *           type: string
- *           example: "Animal not found"
  */

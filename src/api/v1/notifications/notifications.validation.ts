@@ -64,5 +64,4 @@ export const notificationSchemas = {
  *       properties:
  *         message:
  *           type: string
- *           example: "Notification not found"
  */

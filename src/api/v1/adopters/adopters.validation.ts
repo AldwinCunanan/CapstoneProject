@@ -143,6 +143,4 @@ export const adopterSchemas = {
  *       properties:
  *         message:
  *           type: string
- *           description: Error message
- *           example: "Adopter not found"
  */

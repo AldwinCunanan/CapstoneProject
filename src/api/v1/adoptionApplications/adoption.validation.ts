@@ -115,5 +115,4 @@ export const applicationSchemas = {
  *       properties:
  *         message:
  *           type: string
- *           example: "Application not found"
  */
