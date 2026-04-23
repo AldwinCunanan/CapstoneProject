@@ -2,7 +2,7 @@ export interface Adopter {
   id?: string;
   name: string;
   email: string;
-  phone: string;
+  phone?: string;
   address?: string;
   preferredSpecies?: string[]; // for subscription feature
   createdAt: string;

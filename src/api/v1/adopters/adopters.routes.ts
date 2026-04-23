@@ -44,7 +44,7 @@ const adopterRouter = express.Router();
  *       '403':
  *         description: Not authorized
  */
-adopterRouter.post("/adopters", authenticate, isAuthorized({hasRole:["admin", "staff"]}), 
+adopterRouter.post("/adopters", authenticate,   // users 
     validateRequest(adopterSchemas.create), adopterController.createAdopter)
 
 /**
@@ -74,7 +74,8 @@ adopterRouter.post("/adopters", authenticate, isAuthorized({hasRole:["admin", "s
  *                   items:
  *                     $ref: '#/components/schemas/Adopter'
  */
-adopterRouter.get("/adopters", authenticate, adopterController.getAllAdopters);
+adopterRouter.get("/adopters", authenticate, isAuthorized({ hasRole: ["admin"], allowSameUser: true }),
+    adopterController.getAllAdopters); // admin  
 
 /**
  * @openapi
@@ -111,8 +112,8 @@ adopterRouter.get("/adopters", authenticate, adopterController.getAllAdopters);
  *             schema:
  *               $ref: '#/components/schemas/Error'
  */
-adopterRouter.get("/adopters/:id", authenticate, validateRequest(adopterSchemas.getById),
- adopterController.getAdopterById);
+adopterRouter.get("/adopters/:id", authenticate,isAuthorized({ hasRole: ["admin"], allowSameUser: true }),
+     validateRequest(adopterSchemas.getById), adopterController.getAdopterById);
 
  /**
  * @openapi
@@ -158,7 +159,7 @@ adopterRouter.get("/adopters/:id", authenticate, validateRequest(adopterSchemas.
  */
 adopterRouter.put("/adopters/:id", 
     authenticate,
-    isAuthorized({ hasRole: ["admin"], allowSameUser: true }),
+    isAuthorized({ hasRole: ["admin", "staff", "user"], allowSameUser: true }), // user controlled
     validateRequest(adopterSchemas.update), adopterController.updateAdopter);
 
 /**
@@ -195,7 +196,7 @@ adopterRouter.put("/adopters/:id",
  *             schema:
  *               $ref: '#/components/schemas/Error'
  */
-adopterRouter.delete("/adopters/:id", 
+adopterRouter.delete("/adopters/:id", // deletion account 
      authenticate,
      isAuthorized({ hasRole: ["admin"] }),
      validateRequest(adopterSchemas.delete), adopterController.deleteAdopter);

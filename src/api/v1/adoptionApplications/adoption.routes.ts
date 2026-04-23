@@ -42,7 +42,7 @@ const adoptionRequest = express.Router();
  *             schema:
  *               $ref: '#/components/schemas/Error'
  */
-adoptionRequest.post("/applications", authenticate, isAuthorized({hasRole:["admin", "staff"]}), 
+adoptionRequest.post("/applications", authenticate, isAuthorized({hasRole:["admin", "staff"]}),  // Assign valid user
     validateRequest(applicationSchemas.create), applicationController.createApplication)
 
 /**
@@ -157,7 +157,7 @@ adoptionRequest.get("/applications/:id", authenticate, validateRequest(applicati
 adoptionRequest.put("/applications/:id", 
     authenticate,
     isAuthorized({ hasRole: ["admin"], allowSameUser: true }),
-    validateRequest(applicationSchemas.update), applicationController.updateApplication);
+    validateRequest(applicationSchemas.update), applicationController.updateApplication); // 
 
 /**
  * @openapi

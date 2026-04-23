@@ -47,7 +47,7 @@ export const adopterSchemas = {
         body: Joi.object({
             name: Joi.string().required(),
             email: Joi.string().email().required(),
-            phone: Joi.string().required(),
+            phone: Joi.string().optional(),
             address: Joi.string().optional(),
             preferredSpecies: Joi.array().items(Joi.string()).optional(),
             }).options({ allowUnknown: false }),

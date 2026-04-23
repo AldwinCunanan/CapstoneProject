@@ -1,6 +1,6 @@
 import Joi from "joi";
 
-const statusOptions = ["pending", "approved", "rejected"];
+const statusOptions = ["pending", "approved", "rejected"]; // widthrawn
 
 /**
  * @openapi
@@ -40,7 +40,7 @@ export const applicationSchemas = {
             adopterId: Joi.string().required(),
             animalId: Joi.string().required(),
             status: Joi.string().valid(...statusOptions).default("pending"),
-            message: Joi.string().optional(),
+            message: Joi.string().required(),
             }).options({ allowUnknown: false }),
         },
 
@@ -57,7 +57,7 @@ export const applicationSchemas = {
             id: Joi.string().required(),
             }),
             body: Joi.object({
-            adopterId: Joi.string().optional(),
+            adopterId: Joi.string().optional(), // Update 
             animalId: Joi.string().optional(),
             status: Joi.string().valid(...statusOptions).optional(),
             message: Joi.string().optional(),

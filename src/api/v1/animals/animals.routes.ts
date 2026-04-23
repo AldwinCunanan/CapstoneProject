@@ -174,8 +174,7 @@ animalRouter.get("/animals/:id", authenticate, validateRequest(animalSchemas.get
  *             schema:
  *               $ref: '#/components/schemas/ErrorResponse'
  */
-animalRouter.put("/animals/:id", 
-    authenticate,
+animalRouter.put("/animals/:id", authenticate,
     isAuthorized({ hasRole: ["admin"], allowSameUser: true }),
     validateRequest(animalSchemas.update), animalController.updateAnimal);
 
