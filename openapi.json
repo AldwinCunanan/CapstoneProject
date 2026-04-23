@@ -433,6 +433,65 @@
   ],
   "paths": {
     "/adopters": {
+      "post": {
+        "summary": "Create a new adopter",
+        "tags": [
+          "Adopters"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "description": "Only admin and staff users can create adopters",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateAdopterRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Adopter created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Adopter created successfully"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Adopter"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "example": {
+                  "message": "Invalid adopter data"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Not authorized"
+          }
+        }
+      },
       "get": {
         "summary": "Retrieve all adopters",
         "tags": [

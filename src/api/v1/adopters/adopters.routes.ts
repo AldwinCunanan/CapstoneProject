@@ -40,9 +40,9 @@ const adopterRouter = express.Router();
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Error
+ *               $ref: '#/components/schemas/Error'
  *             example:
- *               message: "Adopter not found"
+ *               message: "Invalid adopter data"
  *       '403':
  *         description: Not authorized
  */
