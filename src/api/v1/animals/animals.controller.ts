@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import * as animalsService from "./animals.service";
 import { HTTP_STATUS } from "../constants/httpConstants";
+import * as notificationsService from "../notifications/notifications.service";
 
 // Create Animal handler
 export const createAnimal = async (
@@ -10,6 +11,8 @@ export const createAnimal = async (
 ): Promise<void> => {
   try {
     const animal = await animalsService.createAnimal(req.body);
+
+    await notificationsService.notifyMatchingAdopters(animal); // new component addition
 
     res.status(HTTP_STATUS.CREATED).json({
       message: "Animal created successfully",
