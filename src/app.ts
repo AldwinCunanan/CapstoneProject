@@ -1,10 +1,14 @@
 import express from "express";
+import dotenv from "dotenv";
+dotenv.config();
 import setupSwagger from "./config/swagger";
 import {
     accessLogger,
     errorLogger,
     consoleLogger,
 } from "./api/v1/middleware/logger";
+import cors from "cors";
+import morgan from "morgan";
 import authRoutes from "./api/v1/routes/adminRoutes";
 import signInRoutes from "./api/v1/routes/signInRoutes";
 import animalRouter from "./api/v1/animals/animals.routes";
