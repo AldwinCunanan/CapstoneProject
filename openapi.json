@@ -1,9 +1,9 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "title": "Task Management API Documentation",
+    "title": "Animal Adoption API Documentation",
     "version": "1.0.0",
-    "description": "This is the API documentation for the Task Management application."
+    "description": "This is the API documentation for the animal adoption application."
   },
   "servers": [
     {
@@ -18,6 +18,414 @@
         "scheme": "bearer",
         "bearerFormat": "JWT"
       }
+    },
+    "schemas": {
+      "Adopter": {
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "email",
+          "phone"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier for the adopter",
+            "example": "adopter_123abc"
+          },
+          "name": {
+            "type": "string",
+            "description": "Full name of the adopter",
+            "example": "Jane Smith"
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "description": "Email address of the adopter",
+            "example": "jane@example.com"
+          },
+          "phone": {
+            "type": "string",
+            "description": "Contact number of the adopter",
+            "example": "+1-204-555-1234"
+          },
+          "address": {
+            "type": "string",
+            "description": "Home address of the adopter",
+            "example": "123 Main St, Winnipeg, MB"
+          },
+          "preferredSpecies": {
+            "type": "array",
+            "description": "Preferred animal species for adoption",
+            "items": {
+              "type": "string"
+            },
+            "example": [
+              "Dog",
+              "Cat"
+            ]
+          }
+        }
+      },
+      "CreateAdopterRequest": {
+        "type": "object",
+        "required": [
+          "name",
+          "email",
+          "phone"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Full name of the adopter",
+            "example": "Jane Smith"
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "description": "Email address of the adopter",
+            "example": "jane@example.com"
+          },
+          "phone": {
+            "type": "string",
+            "description": "Contact number of the adopter",
+            "example": "+1-204-555-1234"
+          },
+          "address": {
+            "type": "string",
+            "description": "Home address of the adopter",
+            "example": "123 Main St, Winnipeg, MB"
+          },
+          "preferredSpecies": {
+            "type": "array",
+            "description": "Preferred animal species for adoption",
+            "items": {
+              "type": "string"
+            },
+            "example": [
+              "Dog",
+              "Cat"
+            ]
+          }
+        }
+      },
+      "UpdateAdopterRequest": {
+        "type": "object",
+        "minProperties": 1,
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string",
+            "format": "email"
+          },
+          "phone": {
+            "type": "string"
+          },
+          "address": {
+            "type": "string"
+          },
+          "preferredSpecies": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "Error": {
+        "type": "object",
+        "required": [
+          "message"
+        ],
+        "properties": {
+          "message": {
+            "type": "string",
+            "description": "Error message",
+            "example": "Notification not found"
+          }
+        }
+      },
+      "Application": {
+        "type": "object",
+        "required": [
+          "id",
+          "adopterId",
+          "animalId",
+          "status"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier for the application",
+            "example": "application_123abc"
+          },
+          "adopterId": {
+            "type": "string",
+            "description": "ID of the adopter submitting the application"
+          },
+          "animalId": {
+            "type": "string",
+            "description": "ID of the animal being applied for"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "pending",
+              "approved",
+              "rejected"
+            ],
+            "default": "pending"
+          },
+          "message": {
+            "type": "string",
+            "description": "Optional message from the adopter",
+            "example": "I have a large yard and experience with pets"
+          }
+        }
+      },
+      "CreateApplicationRequest": {
+        "type": "object",
+        "required": [
+          "adopterId",
+          "animalId"
+        ],
+        "properties": {
+          "adopterId": {
+            "type": "string"
+          },
+          "animalId": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "pending",
+              "approved",
+              "rejected"
+            ],
+            "default": "pending"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      },
+      "UpdateApplicationRequest": {
+        "type": "object",
+        "minProperties": 1,
+        "properties": {
+          "adopterId": {
+            "type": "string"
+          },
+          "animalId": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "pending",
+              "approved",
+              "rejected"
+            ]
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      },
+      "Animal": {
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "species",
+          "age",
+          "gender"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier for the animal",
+            "example": "animal_123abc"
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of the animal",
+            "example": "Buddy"
+          },
+          "species": {
+            "type": "string",
+            "description": "Species of the animal",
+            "example": "Dog"
+          },
+          "breed": {
+            "type": "string",
+            "description": "Breed of the animal",
+            "example": "Golden Retriever"
+          },
+          "age": {
+            "type": "number",
+            "minimum": 0,
+            "description": "Age of the animal",
+            "example": 3
+          },
+          "gender": {
+            "type": "string",
+            "enum": [
+              "male",
+              "female"
+            ]
+          },
+          "healthStatus": {
+            "type": "string",
+            "enum": [
+              "healthy",
+              "injured",
+              "sick"
+            ],
+            "default": "healthy"
+          },
+          "isAdopted": {
+            "type": "boolean",
+            "default": false
+          },
+          "description": {
+            "type": "string",
+            "example": "Friendly and energetic"
+          }
+        }
+      },
+      "CreateAnimalRequest": {
+        "type": "object",
+        "required": [
+          "name",
+          "species",
+          "age",
+          "gender"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "species": {
+            "type": "string"
+          },
+          "breed": {
+            "type": "string"
+          },
+          "age": {
+            "type": "number",
+            "minimum": 0
+          },
+          "gender": {
+            "type": "string",
+            "enum": [
+              "male",
+              "female"
+            ]
+          },
+          "healthStatus": {
+            "type": "string",
+            "enum": [
+              "healthy",
+              "injured",
+              "sick"
+            ]
+          },
+          "isAdopted": {
+            "type": "boolean"
+          },
+          "description": {
+            "type": "string"
+          }
+        }
+      },
+      "UpdateAnimalRequest": {
+        "type": "object",
+        "minProperties": 1,
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "species": {
+            "type": "string"
+          },
+          "breed": {
+            "type": "string"
+          },
+          "age": {
+            "type": "number",
+            "minimum": 0
+          },
+          "gender": {
+            "type": "string",
+            "enum": [
+              "male",
+              "female"
+            ]
+          },
+          "healthStatus": {
+            "type": "string",
+            "enum": [
+              "healthy",
+              "injured",
+              "sick"
+            ]
+          },
+          "isAdopted": {
+            "type": "boolean"
+          },
+          "description": {
+            "type": "string"
+          }
+        }
+      },
+      "Notification": {
+        "type": "object",
+        "required": [
+          "id",
+          "adopterId",
+          "animalId",
+          "message",
+          "isRead"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique identifier for the notification",
+            "example": "notification_123abc"
+          },
+          "adopterId": {
+            "type": "string",
+            "description": "ID of the adopter receiving the notification"
+          },
+          "animalId": {
+            "type": "string",
+            "description": "ID of the related animal"
+          },
+          "message": {
+            "type": "string",
+            "description": "Notification message shown to the user",
+            "example": "A new Dog named Buddy is available for adoption."
+          },
+          "isRead": {
+            "type": "boolean",
+            "description": "Whether the notification has been read",
+            "example": false
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      }
     }
   },
   "security": [
@@ -25,6 +433,937 @@
       "bearerAuth": []
     }
   ],
-  "paths": {},
+  "paths": {
+    "/adopters": {
+      "post": {
+        "summary": "Create a new adopter",
+        "tags": [
+          "Adopters"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "description": "Only admin and staff users can create adopters",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateAdopterRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Adopter created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Adopter created successfully"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Adopter"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Not authorized"
+          }
+        }
+      },
+      "get": {
+        "summary": "Retrieve all adopters",
+        "tags": [
+          "Adopters"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Adopters retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Adopters retrieved successfully"
+                    },
+                    "count": {
+                      "type": "integer",
+                      "example": 5
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Adopter"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/adopters/{id}": {
+      "get": {
+        "summary": "Retrieve an adopter by ID",
+        "tags": [
+          "Adopters"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Adopter ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Adopter retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Adopter retrieved successfully"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Adopter"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Adopter not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update an adopter",
+        "tags": [
+          "Adopters"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "description": "Only admins can update adopters",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Adopter ID"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateAdopterRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Adopter updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Adopter updated successfully"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Adopter"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Adopter not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete an adopter",
+        "tags": [
+          "Adopters"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "description": "Only admins can delete adopters",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Adopter ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Adopter deleted successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Adopter deleted successfully"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Adopter not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/applications": {
+      "post": {
+        "summary": "Create a new adoption application",
+        "tags": [
+          "Applications"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "description": "Creates a new adoption application for an animal",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateApplicationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Application created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Application created successfully"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Application"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Adopter or Animal not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "summary": "Retrieve all applications",
+        "tags": [
+          "Applications"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Applications retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Applications retrieved successfully"
+                    },
+                    "count": {
+                      "type": "integer",
+                      "example": 10
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Application"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/applications/{id}": {
+      "get": {
+        "summary": "Retrieve an application by ID",
+        "tags": [
+          "Applications"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Application ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Application retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Application retrieved successfully"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Application"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Application not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update an application",
+        "tags": [
+          "Applications"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "description": "Updates an existing adoption application",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Application ID"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateApplicationRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Application updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Application updated successfully"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Application"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Application, Adopter, or Animal not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete an application",
+        "tags": [
+          "Applications"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "description": "Deletes an adoption application",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Application ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Application deleted successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Application deleted successfully"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Application not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/animals": {
+      "post": {
+        "summary": "Create a new animal",
+        "tags": [
+          "Animals"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "description": "Creates a new animal record. Accessible to admin and staff users only.",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "name",
+                  "species",
+                  "age",
+                  "gender"
+                ],
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "species": {
+                    "type": "string"
+                  },
+                  "breed": {
+                    "type": "string"
+                  },
+                  "age": {
+                    "type": "number",
+                    "minimum": 0
+                  },
+                  "gender": {
+                    "type": "string",
+                    "enum": [
+                      "male",
+                      "female"
+                    ]
+                  },
+                  "healthStatus": {
+                    "type": "string",
+                    "enum": [
+                      "healthy",
+                      "injured",
+                      "sick"
+                    ],
+                    "default": "healthy"
+                  },
+                  "isAdopted": {
+                    "type": "boolean",
+                    "default": false
+                  },
+                  "description": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Animal created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Animal"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Not authorized"
+          }
+        }
+      },
+      "get": {
+        "summary": "Retrieve all animals",
+        "tags": [
+          "Animals"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Animals retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Animal"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/animals/{id}": {
+      "get": {
+        "summary": "Retrieve an animal by ID",
+        "tags": [
+          "Animals"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Unique animal ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Animal retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Animal"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Animal not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update an animal by ID",
+        "tags": [
+          "Animals"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "description": "Updates an existing animal. Accessible to admin users only.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Unique animal ID"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "minProperties": 1,
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "species": {
+                    "type": "string"
+                  },
+                  "breed": {
+                    "type": "string"
+                  },
+                  "age": {
+                    "type": "number",
+                    "minimum": 0
+                  },
+                  "gender": {
+                    "type": "string",
+                    "enum": [
+                      "male",
+                      "female"
+                    ]
+                  },
+                  "healthStatus": {
+                    "type": "string",
+                    "enum": [
+                      "healthy",
+                      "injured",
+                      "sick"
+                    ]
+                  },
+                  "isAdopted": {
+                    "type": "boolean"
+                  },
+                  "description": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Animal updated successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Animal"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Animal not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete an animal by ID",
+        "tags": [
+          "Animals"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "description": "Deletes an animal record. Accessible to admin users only.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Unique animal ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Animal deleted successfully"
+          },
+          "404": {
+            "description": "Animal not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/notifications/adopter/{adopterId}": {
+      "get": {
+        "summary": "Retrieve notifications for an adopter",
+        "tags": [
+          "Notifications"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "adopterId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Adopter ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Notifications retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Notifications retrieved successfully"
+                    },
+                    "count": {
+                      "type": "integer",
+                      "example": 2
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Notification"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/notifications/{id}/read": {
+      "put": {
+        "summary": "Mark a notification as read",
+        "tags": [
+          "Notifications"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Notification ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Notification marked as read successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Notification marked as read successfully"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/Notification"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Notification not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
   "tags": []
 }

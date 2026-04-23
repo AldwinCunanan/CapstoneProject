@@ -55,13 +55,13 @@ const animalRouter = express.Router();
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/AnimalResponse'
+ *               $ref: '#/components/schemas/Animal'
  *       '400':
  *         description: Validation error
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/ErrorResponse'
+ *               $ref: '#/components/schemas/Error'
  *       '403':
  *         description: Not authorized
  */
@@ -82,7 +82,7 @@ animalRouter.post("/animals", authenticate, isAuthorized({hasRole:["admin", "sta
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/AnimalsListResponse'
+ *               $ref: '#/components/schemas/Animal'
  */
 animalRouter.get("/animals", authenticate, animalController.getAllAnimals);
 
@@ -107,13 +107,13 @@ animalRouter.get("/animals", authenticate, animalController.getAllAnimals);
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/AnimalResponse'
+ *               $ref: '#/components/schemas/Animal'
  *       '404':
  *         description: Animal not found
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/ErrorResponse'
+ *               $ref: '#/components/schemas/Error'
  */
 animalRouter.get("/animals/:id", authenticate, validateRequest(animalSchemas.getById), animalController.getAnimalById);
 
@@ -166,13 +166,13 @@ animalRouter.get("/animals/:id", authenticate, validateRequest(animalSchemas.get
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/AnimalResponse'
+ *               $ref: '#/components/schemas/Animal'
  *       '404':
  *         description: Animal not found
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/ErrorResponse'
+ *               $ref: '#/components/schemas/Error'
  */
 animalRouter.put("/animals/:id", authenticate,
     isAuthorized({ hasRole: ["admin"], allowSameUser: true }),
@@ -197,16 +197,12 @@ animalRouter.put("/animals/:id", authenticate,
  *     responses:
  *       '200':
  *         description: Animal deleted successfully
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/MessageResponse'
  *       '404':
  *         description: Animal not found
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/ErrorResponse'
+ *               $ref: '#/components/schemas/Error'
  */
 animalRouter.delete("/animals/:id", 
      authenticate,
