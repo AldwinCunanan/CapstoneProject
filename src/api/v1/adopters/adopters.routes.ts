@@ -44,7 +44,7 @@ const adopterRouter = express.Router();
  *       '403':
  *         description: Not authorized
  */
-adopterRouter.post("/adopters", authenticate,   // users 
+adopterRouter.post("/adopters",   // users 
     validateRequest(adopterSchemas.create), adopterController.createAdopter)
 
 /**

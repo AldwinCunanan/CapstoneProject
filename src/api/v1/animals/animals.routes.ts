@@ -84,7 +84,7 @@ animalRouter.post("/animals", authenticate, isAuthorized({hasRole:["admin", "sta
  *             schema:
  *               $ref: '#/components/schemas/Animal'
  */
-animalRouter.get("/animals", authenticate, animalController.getAllAnimals);
+animalRouter.get("/animals", animalController.getAllAnimals);
 
 /**
  * @openapi
@@ -115,7 +115,7 @@ animalRouter.get("/animals", authenticate, animalController.getAllAnimals);
  *             schema:
  *               $ref: '#/components/schemas/Error'
  */
-animalRouter.get("/animals/:id", authenticate, validateRequest(animalSchemas.getById), animalController.getAnimalById);
+animalRouter.get("/animals/:id", validateRequest(animalSchemas.getById), animalController.getAnimalById);
 
 /**
  * @openapi
@@ -175,7 +175,7 @@ animalRouter.get("/animals/:id", authenticate, validateRequest(animalSchemas.get
  *               $ref: '#/components/schemas/Error'
  */
 animalRouter.put("/animals/:id", authenticate,
-    isAuthorized({ hasRole: ["admin"], allowSameUser: true }),
+    isAuthorized({ hasRole: ["admin", "staff"], allowSameUser: true }),
     validateRequest(animalSchemas.update), animalController.updateAnimal);
 
 /**

@@ -6,7 +6,7 @@ The system includes role-based access control for administrators and staff, and 
 
 ## Features
 
-- Animal management 
+- Animal management
 - Adopter management
 - Adoption applications
 - Notification system (new component)
