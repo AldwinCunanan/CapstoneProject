@@ -14,7 +14,7 @@ export const getNotificationsByAdopterId = async (
       await notificationsService.getNotificationsByAdopterId(adopterId);
 
     res.status(HTTP_STATUS.OK).json({
-      message: "Notifications retrieved successfully",
+      message: "A new animal just arrived at the shelter!",
       count: notifications.length,
       data: notifications,
     });

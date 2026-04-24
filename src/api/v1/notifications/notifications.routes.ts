@@ -43,7 +43,7 @@ const notificationRouter = express.Router();
  */
 notificationRouter.get(
   "/notifications/adopter/:adopterId",
-  authenticate, isAuthorized({hasRole:["user","admin"]}),
+  authenticate, isAuthorized({hasRole:["user","admin", "user"]}),
   validateRequest(notificationSchemas.getByAdopterId),
   notificationController.getNotificationsByAdopterId
 );
